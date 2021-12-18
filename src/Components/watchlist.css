@@ -1,0 +1,78 @@
+.search-div{
+    width: 45%;
+    margin: auto;
+    border: 2px solid rgb(241,241,241);
+    padding: 42px;
+    border-top: none;
+    border-bottom: none;
+}
+
+.search-bar{
+    width: 100%;
+    height: 40px;
+    border: 2px solid rgb(217,217,217);
+    outline: none;
+    font-size: 25px;
+    padding: 10px;
+}
+.search-bar::placeholder{
+    color: rgb(61,61,61);
+    /* color: red; */
+    /* margin-left: 50px; */
+}
+
+.watchlist-main-div{
+    width: 50%;
+    margin: auto;
+    border: 2px solid rgb(241,241,241);
+    padding: 5px;
+}
+
+.user-info{
+    display: flex;
+    margin-bottom: 40px;
+    padding-left: 10px;
+    padding-right: 10px;
+    align-items: center;
+    justify-content: space-between;
+}
+.icon{
+    width: 40px;
+    margin-right: 20px;
+}
+
+.watchlist-main-div-child{
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.watchlist-main-div-child:hover{
+    background-color: rgb(250,250,250);
+}
+.lineBreak{
+    margin: 0%;
+}
+
+.searchList-main-div{
+    width: 50%;
+    margin: auto;
+    border: 2px solid rgb(241,241,241);
+    /* padding: 5px; */
+}
+.searchList-main-div-child{
+    padding: 0px 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.searchList-main-div-child:hover{
+    background-color: rgb(250,250,250);
+}
+.searchList-main-div-child>h3{
+    margin: 0;
+}
+.searchList-main-div-child>h4{
+    margin: 0;
+}
