@@ -51,6 +51,10 @@
 .watchlist-main-div-child:hover{
     background-color: rgb(250,250,250);
 }
+
+.watchlist-main-div-child:hover .deleteButton{
+    visibility: visible;
+}
 .lineBreak{
     margin: 0%;
 }
@@ -70,9 +74,56 @@
 .searchList-main-div-child:hover{
     background-color: rgb(250,250,250);
 }
+.searchList-main-div-child:hover .addButton{
+    visibility: visible;
+}
 .searchList-main-div-child>h3{
     margin: 0;
 }
 .searchList-main-div-child>h4{
     margin: 0;
 }
+
+.noDataInWatchlist{
+    /* border: 1px solid black; */
+    width: 25%;
+    margin: auto;
+}
+.addButton{
+    width: 40px;
+    margin-right: 10px;
+    visibility: hidden;
+}
+.addButton:hover{
+    cursor: pointer;
+}
+.deleteButton{
+    width: 40px;
+    margin-right: 10px;
+    visibility: hidden;
+}
+.deleteButton:hover{
+    cursor: pointer;
+}
+
+/* 
+.hoverWrapper{
+    border: 1px solid black;
+}
+
+.hoverWrapper:hover #hoverShow1 {
+    display: block;
+    visibility: visible;
+
+   }
+   
+   .hoverWrapper #hoverShow1 {
+    /* display: none; */
+    /* position: absolute; */
+    /* background-color: #ff0000; */
+    /* width: 250px; */
+    /* height: 250px; */
+    /* left: 200px; */
+    /* top: 100px; */
+    /* visibility: hidden; */
+   

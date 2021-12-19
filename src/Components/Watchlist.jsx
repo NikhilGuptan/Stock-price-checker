@@ -16,36 +16,7 @@ for(let i=0; i<allData.length; i++){
 }
 
 let sample = [
-    [1,
-        "ASIANPAINT::NSE",
-        3143.65,
-        3144.3
-    ],
-    [2,
-        "NIFTY BANK::NSE",
-        35590.5,
-        35617.55
-    ],
-    [3,
-        "BAJAJHLDNG::NSE",
-        5037.8,
-        4940.35
-    ],
-    [4,
-        "CIPLA::NSE",
-        971.3,
-        965
-    ],
-    [5,
-        "DABUR::NSE",
-        594.95,
-        598
-    ],
-    [6,
-        "M&M::NSE",
-        835.5,
-        850.8
-    ]
+    
 ]
 
 function Watchlist(){
@@ -72,12 +43,44 @@ function Watchlist(){
 
     },[search])
 
-    // extra code for refrance
-    
+    const checkDataInWatchlist = (id)=>{
+        for(let i=0; i<watchListData.length; i++){
+            console.log(watchListData[i][0]);
+            if(watchListData[i][0][0]===id){
+                return false;
+            }
+        }
+        return true;
+    }
 
-    // {priceChange.toFixed(2)}%
+    const handleAdd = (id)=>{
+        let flag = false;
+        const data = mainData.filter((e)=>{
+           if(e[0]===id && checkDataInWatchlist(id)===true){
+            // if(e[0]===id){    
+                flag = true;
+               return e;
+           }
+        })
+        if(flag===true){
+            setWatchListData([...watchListData,data])
+            alert("Stock added In the Watchlist")
+            return;
+        }else{
+            alert("Stock is already Present in the Watchlist")
+            return
+        }
+    }
 
-    // (data[1] - data[2]) / data[2])
+    const handleDelete = (id)=>{
+        const data = watchListData.filter((e)=>{
+            if(id!==e[0][0]){
+                return e[0];
+            }
+        })
+        setWatchListData(data)
+        alert("Deleting from the Watchlist")
+    }
 
     return(
         <div>
@@ -88,59 +91,67 @@ function Watchlist(){
                 }} className="search-bar" placeholder="Search Stocks..." />
             </div>
             {flag ? 
-        <>
-            <div className="watchlist-main-div">
-                <div className="user-info">
+        watchListData.length<=0 ? <div className="noDataInWatchlist"><h1>No Data In Watchlist</h1></div> : <>
+        <div className="watchlist-main-div">
+            <div className="user-info">
                     <h2>Nikhil Gupta</h2>
+                <div>
+                    <img src={`./edit.png`} className="icon" alt="Edit" />
+                    <img src={`./delete.png`} alt="delete"  className="icon"/>
+                </div>
+            </div>
+            <hr className="lineBreak"/>
+        {watchListData.map(e=>{
+            return(
+                <div key={e[0][0]}>
+                <div className="watchlist-main-div-child">
                     <div>
-                        <img src={`./edit.png`} className="icon" alt="Edit" />
-                        <img src={`./delete.png`} alt="delete"  className="icon"/>
+                        <h2 style={{color:((e[0][2]-e[0][3])/e[0][3])<0 ? "rgb(234,107,69)":"rgb(41,197,193)"}}>{e[0][1]}</h2>
+                        <p style={{color:"rgb(145,145,145)"}}>NSE</p>
+                    </div>
+                    <div style={{display:"flex",alignItems:"center"}}>
+                        <img src={`./delete.png`} alt="delete" onClick={()=>{
+                            handleDelete(e[0][0])
+                        }} className="deleteButton"  style={{width:"40px",marginRight:"10px"}}/>
+                        <div style={{textAlign:"right"}}>
+                            <h3 style={{color:((e[0][2]-e[0][3])/e[0][3])<0 ? "rgb(234,107,69)":"rgb(41,197,193)"}}>{e[0][2]}</h3>
+                            <p>{((e[0][2]-e[0][3])/e[0][3]).toFixed(2)}%</p>
+                        </div>
                     </div>
                 </div>
                 <hr className="lineBreak"/>
-            {sample.map(e=>{
-                return(
-                    <div key={e[2]}>
-                    <div className="watchlist-main-div-child">
-                        <div>
-                            <h2 style={{color:((e[2]-e[3])/e[3])<0 ? "rgb(234,107,69)":"rgb(41,197,193)"}}>{e[1]}</h2>
-                            <p style={{color:"rgb(145,145,145)"}}>NSE</p>
-                        </div>
-                        <div style={{display:"flex",alignItems:"center"}}>
-                            <img src={`./delete.png`} alt="delete"  style={{width:"40px",marginRight:"10px"}}/>
-                            <div style={{textAlign:"right"}}>
-                                <h3 style={{color:((e[2]-e[3])/e[3])<0 ? "rgb(234,107,69)":"rgb(41,197,193)"}}>{e[2]}</h3>
-                                <p>{((e[2]-e[3])/e[3]).toFixed(2)}%</p>
-                            </div>
-                        </div>
+                </div>
+            )
+        })}
+        </div>
+    </>: 
+        searchedData<=0 ? <div className="noDataInWatchlist"><h1>No Match Found</h1></div> : <>
+        <div className="searchList-main-div">
+        {searchedData.map(e=>{
+            return(
+                <div key={e[0]}>
+                <div  className="searchList-main-div-child">
+                    <div>
+                        <h3 style={{color:((e[2]-e[3])/e[3])<0 ? "rgb(234,107,69)":"rgb(41,197,193)"}}>{e[1]}</h3>
+                        <p style={{color:"rgb(145,145,145)"}}>NSE</p>
                     </div>
-                    <hr className="lineBreak"/>
-                    </div>
-                )
-            })}
-            </div>
-        </>: 
-        <>
-            <div className="searchList-main-div">
-            {searchedData.map(e=>{
-                return(
-                    <div key={e[0]}>
-                    <div  className="searchList-main-div-child">
-                        <div>
-                            <h3 style={{color:((e[2]-e[3])/e[3])<0 ? "rgb(234,107,69)":"rgb(41,197,193)"}}>{e[1]}</h3>
-                            <p style={{color:"rgb(145,145,145)"}}>NSE</p>
-                        </div>
+                    <div style={{display:"flex",alignItems:"center"}}>
+                        <img src={`./add.png`} className="addButton" onClick={()=>{
+                            handleAdd(e[0])
+                        }} alt="delete" />
                         <div style={{textAlign:"right"}}>
                             <h4 style={{color:((e[2]-e[3])/e[3])<0 ? "rgb(234,107,69)":"rgb(41,197,193)"}}>{e[2]}</h4>
                             <p>{((e[2]-e[3])/e[3]).toFixed(2)}%</p>
                         </div>
                     </div>
-                    <hr className="lineBreak"/>
-                    </div>
-                )
-            })}
-            </div>
-        </>}
+                </div>
+                <hr className="lineBreak"/>
+                </div>
+            )
+        })}
+        </div>
+    </>
+        }
         </div>
     )
 }
