@@ -11,7 +11,7 @@ for(let i=0; i<allData.length; i++){
     let a = [];
     let splitData = allData[i][0].split("::");
     let id = nanoid();
-    a.push(id,splitData[0],allData[i][1],allData[i][2]);
+    a.push(id,splitData[0],allData[i][1],allData[i][2],0);
     dataWithId.push(a)
 }
 
@@ -41,35 +41,48 @@ function Watchlist(){
         // console.log(filteredData);
           setSearchedData(filteredData);
 
-    },[search])
+    },[search,mainData])
 
-    const checkDataInWatchlist = (id)=>{
-        for(let i=0; i<watchListData.length; i++){
-            console.log(watchListData[i][0]);
-            if(watchListData[i][0][0]===id){
-                return false;
-            }
-        }
-        return true;
-    }
+    // const checkDataInWatchlist = (id)=>{
+    //     for(let i=0; i<watchListData.length; i++){
+    //         console.log(watchListData[i][0]);
+    //         if(watchListData[i][0][0]===id){
+    //             return false;
+    //         }
+    //     }
+    //     return true;
+    // }
 
     const handleAdd = (id)=>{
         let flag = false;
         const data = mainData.filter((e)=>{
-           if(e[0]===id && checkDataInWatchlist(id)===true){
-            // if(e[0]===id){    
+        //    if(e[0]===id && checkDataInWatchlist(id)===true){
+            if(e[0]===id){    
                 flag = true;
                return e;
            }
         })
-        if(flag===true){
-            setWatchListData([...watchListData,data])
-            alert("Stock added In the Watchlist")
-            return;
-        }else{
-            alert("Stock is already Present in the Watchlist")
-            return
-        }
+        // if(flag===true){
+        //     setWatchListData([...watchListData,data])
+        //     alert("Stock added In the Watchlist")
+        //     return;
+        // }else{
+        //     alert("Stock is already Present in the Watchlist")
+        //     return
+        // }
+
+        const sampleData = mainData.map((e)=>{
+            if(e[0]===id){
+                e[4] = 1;
+                return e;
+            }else{
+                return e;
+            }
+        })
+        // console.log(sampleData);
+
+        setWatchListData([...watchListData,data])
+        // alert("Stock added In the Watchlist")
     }
 
     const handleDelete = (id)=>{
@@ -78,8 +91,19 @@ function Watchlist(){
                 return e[0];
             }
         })
+
+        const sampleData = mainData.map((e)=>{
+            if(e[0]===id){
+                e[4] = 0;
+                return e;
+            }else{
+                return e;
+            }
+        })
+        // console.log(sampleData);
+
         setWatchListData(data)
-        alert("Deleting from the Watchlist")
+        // alert("Deleting from the Watchlist")
     }
 
     return(
@@ -136,9 +160,11 @@ function Watchlist(){
                         <p style={{color:"rgb(145,145,145)"}}>NSE</p>
                     </div>
                     <div style={{display:"flex",alignItems:"center"}}>
-                        <img src={`./add.png`} className="addButton" onClick={()=>{
+                        {e[4]===1 ? <img src={`./delete.png`} alt="delete" onClick={()=>{
+                            handleDelete(e[0])
+                        }} className="deleteButton"  style={{width:"40px",marginRight:"10px"}}/> : <img src={`./add.png`} className="addButton" onClick={()=>{
                             handleAdd(e[0])
-                        }} alt="delete" />
+                        }} alt="delete" />}
                         <div style={{textAlign:"right"}}>
                             <h4 style={{color:((e[2]-e[3])/e[3])<0 ? "rgb(234,107,69)":"rgb(41,197,193)"}}>{e[2]}</h4>
                             <p>{((e[2]-e[3])/e[3]).toFixed(2)}%</p>

@@ -77,6 +77,9 @@
 .searchList-main-div-child:hover .addButton{
     visibility: visible;
 }
+.searchList-main-div-child:hover .deleteButton{
+    visibility: visible;
+}
 .searchList-main-div-child>h3{
     margin: 0;
 }
@@ -97,6 +100,7 @@
 .addButton:hover{
     cursor: pointer;
 }
+
 .deleteButton{
     width: 40px;
     margin-right: 10px;
